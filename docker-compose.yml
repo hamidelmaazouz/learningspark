@@ -5,7 +5,7 @@ volumes:
     driver: local
 
 services:
-  master:
+  sparkmaster:
     image: hamidelmaazouz/sparkmaster:s3.2.0-h3.2-j11
     container_name: sparkmaster
     ports:
@@ -13,7 +13,7 @@ services:
       - 7077:7077
     volumes:
       - sparkws:/opt/sparkws
-  sparkrkworker1:
+  sparkworker1:
     image: hamidelmaazouz/sparkworker:s3.2.0-h3.2-j11
     container_name: sparkworker1
     environment:
@@ -35,6 +35,8 @@ services:
       - 8082:8081
     volumes:
       - sparkws:/opt/sparkws
+    depends_on:
+      - sparkmaster
   sparkworker3:
     image: hamidelmaazouz/sparkworker:s3.2.0-h3.2-j11
     container_name: sparkworker3
